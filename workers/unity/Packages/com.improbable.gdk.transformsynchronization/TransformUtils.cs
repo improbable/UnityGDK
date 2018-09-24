@@ -6,21 +6,22 @@ namespace Improbable.Gdk.TransformSynchronization
 {
     public static class TransformUtils
     {
-        // Can avoid these distance methods by having them at the intermediate layer rather than a custom send system
-        // Should leave the custom send system for purely time based things
-        public static float SquareDistance(Coordinates a, Coordinates b)
+        // Checking for no change, so exact equality is fine
+        public static bool HasMoved(Coordinates a, Coordinates b)
         {
-            return (float) ((a.X - b.X) * (a.X - b.X) + (a.Y - b.Y) * (a.Y - b.Y) + (a.Z - b.Z) * (a.Z - b.Z));
+            return a.X != b.X || a.Y != b.Y || a.Z != b.Z;
         }
 
-        public static float SquareDistance(Location a, Location b)
+        // Checking for no change, so exact equality is fine
+        public static bool HasMoved(Location a, Location b)
         {
-            return (a.X - b.X) * (a.X - b.X) + (a.Y - b.Y) * (a.Y - b.Y) + (a.Z - b.Z) * (a.Z - b.Z);
+            return a.X != b.X || a.Y != b.Y || a.Z != b.Z;
         }
 
-        public static float SquareDistance(Velocity a, Velocity b)
+        // Checking for no change, so exact equality is fine
+        public static bool HasMoved(Improbable.Transform.Quaternion a, Improbable.Transform.Quaternion b)
         {
-            return (a.X - b.X) * (a.X - b.X) + (a.Y - b.Y) * (a.Y - b.Y) + (a.Z - b.Z) * (a.Z - b.Z);
+            return a.W != b.W || a.X != b.X || a.Y != b.Y || a.Z != b.Z;
         }
 
         public static Quaternion ToUnityQuaternion(this Improbable.Transform.Quaternion quaternion)
